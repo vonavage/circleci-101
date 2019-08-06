@@ -64,6 +64,7 @@
                  else
                     echo "Nope!"; exit 1
                  fi
+             - run:  ansible --version
  workflows:
       version: 2
       job_one_and_two:
