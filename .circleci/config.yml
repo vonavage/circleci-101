@@ -64,7 +64,7 @@
                  else
                     echo "Nope!"; exit 1
                  fi
-             - run:  which ansible
+             - run:  hostname -f
  workflows:
       version: 2
       job_one_and_two:
