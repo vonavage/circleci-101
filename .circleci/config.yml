@@ -14,7 +14,7 @@
             - image: circleci/ruby:2.4.1
         steps:
             - checkout
-            - run: echo "A first Hello"
+            - run: echo "A first Hello "
             - run: sleep 10
     job_two:
         docker:
@@ -29,4 +29,4 @@
       job_one_and_two:
           jobs:
               - job_one
-              - job_two 
+              - job_two
