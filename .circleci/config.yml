@@ -1,8 +1,32 @@
- version: 2
- jobs:
-   build:
-     docker:
-       - image: circleci/ruby:2.4.1
-     steps:
-       - checkout
-       - run: echo "A first hello2"
+ # version: 2
+ # jobs:
+ #   build:
+ #     docker:
+ #       - image: circleci/ruby:2.4.1
+ #     steps:
+ #       - checkout
+ #       - run: echo "A first hello2"
+
+  version: 2
+  jobs:
+    job_one:
+        docker:
+            - image: circleci/ruby:2.4.1
+        steps:
+            - checkout
+            - run: echo "A first Hello"
+            - run: sleep 10
+    job_two:
+        docker:
+            - image: circleci/ruby:2.4.1
+        steps:
+            - checkout
+            - run: echo "A second Hello"
+            - run: sleep 15
+
+  workflows:
+      version: 2
+      job_one_and_two:
+          jobs:
+              - job_one
+              - job_two 
