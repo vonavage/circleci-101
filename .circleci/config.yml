@@ -1,13 +1,15 @@
  # TEST-01
- # version: 2
- # jobs:
- #   build:
- #     docker:
- #       - image: circleci/ruby:2.4.1
- #     steps:
- #       - checkout
- #       - run: echo "A first hello2"
-
+ version: 2
+ jobs:
+   build:
+     docker:
+       - image: circleci/ruby:2.4.1
+     steps:
+       - checkout
+       - run: echo "A first hello2"
+       - run:
+           name: get hostname
+           command: hostname -f
 
  # TEST-02
   # version: 2
@@ -35,41 +37,41 @@
   #             - job_two
 
  # TEST-03
- version: 2
- jobs:
-     job_one:
-         docker:
-             - image: circleci/ruby:2.4.1
-         steps:
-             - checkout
-             - run: echo "A first hello"
-             - run: mkdir -p my_workspace
-             - run: echo "Trying out workspaces" > my_workspace/echo-output
-             - persist_to_workspace:
-                 root: my_workspace
-                 paths:
-                     - echo-output
-
-     job_two:
-         docker:
-             - image: circleci/ruby:2.4.1
-         steps:
-             - checkout
-             - run: echo "A more familiar hi"
-             - attach_workspace:
-                 at: my_workspace
-             - run: |
-                 if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
-                    echo "It Worked!";
-                 else
-                    echo "Nope!"; exit 1
-                 fi
-             - run:  hostname -f
- workflows:
-      version: 2
-      job_one_and_two:
-          jobs:
-              - job_one
-              - job_two:
-                  requires:
-                      - job_one
+ # version: 2
+ # jobs:
+ #     job_one:
+ #         docker:
+ #             - image: circleci/ruby:2.4.1
+ #         steps:
+ #             - checkout
+ #             - run: echo "A first hello"
+ #             - run: mkdir -p my_workspace
+ #             - run: echo "Trying out workspaces" > my_workspace/echo-output
+ #             - persist_to_workspace:
+ #                 root: my_workspace
+ #                 paths:
+ #                     - echo-output
+ #
+ #     job_two:
+ #         docker:
+ #             - image: circleci/ruby:2.4.1
+ #         steps:
+ #             - checkout
+ #             - run: echo "A more familiar hi"
+ #             - attach_workspace:
+ #                 at: my_workspace
+ #             - run: |
+ #                 if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
+ #                    echo "It Worked!";
+ #                 else
+ #                    echo "Nope!"; exit 1
+ #                 fi
+ #             - run:  hostname -f
+ # workflows:
+ #      version: 2
+ #      job_one_and_two:
+ #          jobs:
+ #              - job_one
+ #              - job_two:
+ #                  requires:
+ #                      - job_one
